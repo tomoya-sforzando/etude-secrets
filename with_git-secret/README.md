@@ -138,4 +138,26 @@ exit 0
 
 ### Setup CI
 
-(T.B.D.)
+1. Create a GPG key for CI/CD environment (e.g. name: `actions`, email: `actions@sforzando.co.jp`)
+1. Copy value of private_key (e.g. on Mac OS)
+`gpg --export-secret-key actions --armor | tr '\n' ',' | pbcopy`
+
+1. Set environment value as `GPG_PRIVATE_KEY` on CI (e.g. GitHub > Settings > Secrets)
+1. Use the private key on CI as follows
+
+```Shell
+# Install git-secret (https://git-secret.io/installation), for instance, for debian:
+echo "deb https://dl.bintray.com/sobolevn/deb git-secret main" | sudo tee -a /etc/apt/sources.list
+wget -qO - https://api.bintray.com/users/sobolevn/keys/gpg/public.key | sudo apt-key add -
+sudo apt-get update && sudo apt-get install git-secret
+# Create private key file
+echo $GPG_PRIVATE_KEY | tr ',' '\n' > ./private_key.gpg
+# Import private key
+gpg --import ./private_key.gpg
+# Reveal secrets
+git secret reveal
+# carry on with your build script, secret files are available ...
+```
+
+**And add member not forget.**
+`git secret tell actions@sforzando.co.jp`
