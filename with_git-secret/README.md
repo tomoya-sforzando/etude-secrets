@@ -110,6 +110,8 @@ if !(git secret --version >/dev/null 2>&1); then
   exit 1
 fi
 
+export SECRETS_DIR=with_git-secret/.gitsecret
+
 git secret hide
 git add */.gitsecret/* */*.secret
 git status
@@ -126,6 +128,8 @@ if !(git secret --version >/dev/null 2>&1); then
   echo "Error: git-secret is not installed." 1>&2
   exit 1
 fi
+
+export SECRETS_DIR=with_git-secret/.gitsecret
 
 git secret reveal
 
