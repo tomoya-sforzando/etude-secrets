@@ -98,6 +98,27 @@ git-secret: done. 1 of 1 files are revealed.
 
 ### Setup Git Hooks
 
+#### pre-commit to encrypt secret files
+
+```Shell
+#!/bin/sh
+
+echo "Running Git Hooks: pre-commit"
+
+if !(git secret --version >/dev/null 2>&1); then
+  echo "Error: git-secret is not installed." 1>&2
+  exit 1
+fi
+
+git secret hide
+git add */.gitsecret/* */*.secret
+git status
+
+exit 0
+```
+
+#### post-merge to decrypt secret files
+
 (T.B.D.)
 
 ### Setup CI
