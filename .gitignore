@@ -35,6 +35,6 @@ Temporary Items
 
 # git-secret
 
-.gitsecret/keys/random_seed
 !*.secret
+with_git-secret/.gitsecret/keys/random_seed
 with_git-secret/message.txt
