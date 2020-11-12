@@ -119,7 +119,18 @@ exit 0
 
 #### post-merge to decrypt secret files
 
-(T.B.D.)
+```Shell
+echo "Running Git Hooks: post-merge"
+
+if !(git secret --version >/dev/null 2>&1); then
+  echo "Error: git-secret is not installed." 1>&2
+  exit 1
+fi
+
+git secret reveal
+
+exit 0
+```
 
 ### Setup CI
 
