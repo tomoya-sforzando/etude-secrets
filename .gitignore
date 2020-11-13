@@ -39,3 +39,6 @@ with_gpg/secret.txt
 !*.secret
 with_git-secret/.gitsecret/keys/random_seed
 with_git-secret/secret.txt
+
+# git-crypt
+symmetric_key
