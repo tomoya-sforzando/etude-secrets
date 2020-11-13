@@ -2,6 +2,8 @@
 
 ## with GPG as it is
 
+![with GPG as it is](https://user-images.githubusercontent.com/40506652/99053235-41afb880-25dc-11eb-874b-86679cd93992.png)
+
 ### Requirements
 
 GPG
@@ -23,10 +25,10 @@ GPG
 
 ### Setup Git Hooks
 
-#### pre-commit to encrypt secret files
-
-First set passphrase to environment variables
+First, set passphrase to environment variables.
 `export GPG_SECRET_PASSPHRASE=*****`
+
+#### pre-commit to encrypt secret files
 
 ```Shell
 #!/bin/sh
@@ -64,7 +66,7 @@ if !(type gpg >/dev/null 2>&1); then
   exit 1
 fi
 
-gpg --decrypt $secret_txt_gpg >| $secret.txt
+gpg --decrypt --batch --yes --passphrase $GPG_SECRET_PASSPHRASE $secret_txt_gpg >| $secret.txt
 
 exit 0
 ```
@@ -78,9 +80,13 @@ exit 0
 ```Shell
 #!/bin/sh
 
-secret_txt=$HOME/with_gpg/secret.txt
-secret_txt_gpg=$HOME/with_gpg/secret.txt.gpg
+secret_txt=with_gpg/secret.txt
+secret_txt_gpg=with_gpg/secret.txt.gpg
 
 gpg --quiet --batch --yes --decrypt --passphrase="$GPG_SECRET_PASSPHRASE" \
 --output $secret_txt $secret_txt_gpg
 ```
+
+### References
+
+[Encrypted secrets - GitHub Docs](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#limits-for-secrets)
