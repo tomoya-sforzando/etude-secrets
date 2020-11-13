@@ -2,12 +2,14 @@
 
 ## with git-secret
 
+![GitHub Actions](https://user-images.githubusercontent.com/40506652/99023533-232fca00-25a8-11eb-84a1-ca669fa28643.png)
+
 ### Requirements
 
 - GPG
 - [git-secret](https://git-secret.io/)
 
-### Prepare GPG
+### Setup GPG
 
 `brew install gnupg`
 
@@ -122,6 +124,8 @@ exit 0
 #### post-merge to decrypt secret files
 
 ```Shell
+#!/bin/sh
+
 echo "Running Git Hooks: post-merge"
 
 if !(git secret --version >/dev/null 2>&1); then
@@ -138,11 +142,14 @@ exit 0
 
 ### Setup CI
 
-1. Create a GPG key for CI/CD environment (e.g. name: `actions`, email: `actions@sforzando.co.jp`)
+1. Create a GPG key for CI/CD environment
+   - It is easier not to define a password for that key
+   - e.g. name: `actions`, email: `actions@sforzando.co.jp`
 1. Copy value of private_key (e.g. on Mac OS)
 `gpg --export-secret-key actions --armor | tr '\n' ',' | pbcopy`
 
-1. Set environment value as `GPG_PRIVATE_KEY` on CI (e.g. GitHub > Settings > Secrets)
+1. Set environment value as `GPG_PRIVATE_KEY` on CI
+   - e.g. GitHub > Settings > Secrets
 1. Use the private key on CI as follows
 
 ```Shell
