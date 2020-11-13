@@ -3,6 +3,12 @@
 ## 3 ways
 
 1. [Use GPG as it is](https://github.com/tomoya-sforzando/etude-secrets/tree/main/with_gpg)
+   - Pros
+     - No need for a private and public key per user
+     - All you need is a passphrase
+   - Cons
+     - Need to keep track of secret files one by one
+     - Not sure how best to manage passphrases in local environment
 1. [Use git-secret](https://github.com/tomoya-sforzando/etude-secrets/tree/main/with_git-secret)
    - Pros
      - Encryption and decryption are simple commands
