@@ -2,9 +2,10 @@
 
 ## with git-crypt
 
-Secret files are encrypted under their original names.
+![GitHub Actions](https://user-images.githubusercontent.com/40506652/99068603-28b10280-25f0-11eb-8fd3-454e5e7559d1.png)
 
-![GitHub Actions](https://user-images.githubusercontent.com/40506652/99023533-232fca00-25a8-11eb-84a1-ca669fa28643.png)
+Secret files are encrypted under their original names.
+![Secret files are encrypted under their original names](https://user-images.githubusercontent.com/40506652/99068671-48e0c180-25f0-11eb-9b10-c41bf2dd6c99.png)
 
 ### Requirements
 
