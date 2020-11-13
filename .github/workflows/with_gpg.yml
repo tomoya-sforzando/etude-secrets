@@ -15,4 +15,4 @@ jobs:
       # Ensure you remove any print statements of your secrets. GitHub does
       # not hide secrets that use this workaround.
       - name: Test printing secret (Remove this step in production)
-        run: cat $HOME/with_gpg/secret.txt
+        run: cat with_gpg/secret.txt
