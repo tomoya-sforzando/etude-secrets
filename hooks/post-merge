@@ -1,0 +1,39 @@
+#!/bin/sh
+
+echo "Running Git Hooks: post-merge"
+
+if !(type gpg >/dev/null 2>&1); then
+  echo "Error: gpg is not installed." 1>&2
+  exit 1
+fi
+
+if !(git secret --version >/dev/null 2>&1); then
+  echo "Error: git-secret is not installed." 1>&2
+  exit 1
+fi
+
+if !(type git-crypt >/dev/null 2>&1); then
+  echo "Error: git-crypt is not installed." 1>&2
+  exit 1
+fi
+
+# with GPG as it is
+secret_txt=/Users/tomoya.kashimada/Workspace/github.com/tomoya-sforzando/etude-secrets/with_gpg/secret.txt
+secret_txt_gpg=/Users/tomoya.kashimada/Workspace/github.com/tomoya-sforzando/etude-secrets/with_gpg/secret.txt.gpg
+
+gpg --decrypt --batch --yes --passphrase $GPG_SECRET_PASSPHRASE $secret_txt_gpg >| $secret.txt
+
+
+# with git-secret
+export SECRETS_DIR=with_git-secret/.gitsecret
+
+git secret reveal
+
+
+# with git-crypt
+symmetric_key=/Users/tomoya.kashimada/Workspace/github.com/tomoya-sforzando/etude-secrets/with_git-crypt/symmetric_key
+
+git-crypt unlock $symmetric_key
+
+
+exit 0

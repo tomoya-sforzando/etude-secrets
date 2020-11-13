@@ -1,0 +1,43 @@
+#!/bin/sh
+
+echo "Running Git Hooks: pre-commit"
+
+if !(type gpg >/dev/null 2>&1); then
+  echo "Error: gpg is not installed." 1>&2
+  exit 1
+fi
+
+if !(git secret --version >/dev/null 2>&1); then
+  echo "Error: git-secret is not installed." 1>&2
+  exit 1
+fi
+
+if !(type git-crypt >/dev/null 2>&1); then
+  echo "Error: git-crypt is not installed." 1>&2
+  exit 1
+fi
+
+# with GPG as it is
+secret_txt=/Users/tomoya.kashimada/Workspace/github.com/tomoya-sforzando/etude-secrets/with_gpg/secret.txt
+secret_txt_gpg=/Users/tomoya.kashimada/Workspace/github.com/tomoya-sforzando/etude-secrets/with_gpg/secret.txt.gpg
+
+gpg --symmetric --batch --yes --cipher-algo AES256 --passphrase $GPG_SECRET_PASSPHRASE $secret_txt
+
+git add $secret_txt_gpg
+
+
+# with git-secret
+export SECRETS_DIR=with_git-secret/.gitsecret
+
+git secret hide
+git add */.gitsecret/* */*.secret
+
+
+# with git-secret
+# Encrypt automatically
+
+
+# check staged files
+git status
+
+exit 0
