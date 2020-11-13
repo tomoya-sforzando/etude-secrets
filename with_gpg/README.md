@@ -25,21 +25,25 @@ GPG
 
 #### pre-commit to encrypt secret files
 
+First set passphrase to environment variables
+`export GPG_SECRET_PASSPHRASE=*****`
+
 ```Shell
 #!/bin/sh
 
 echo "Running Git Hooks: pre-commit"
 
 secret_txt=/Users/tomoya.kashimada/Workspace/github.com/tomoya-sforzando/etude-secrets/with_gpg/secret.txt
+secret_txt_gpg=/Users/tomoya.kashimada/Workspace/github.com/tomoya-sforzando/etude-secrets/with_gpg/secret.txt.gpg
 
 if !(type gpg >/dev/null 2>&1); then
   echo "Error: gpg is not installed." 1>&2
   exit 1
 fi
 
-gpg --symmetric --cipher-algo AES256 $secret_txt
+gpg --symmetric --batch --yes --cipher-algo AES256 --passphrase $GPG_SECRET_PASSPHRASE $secret_txt
 
-git add $secret_txt
+git add $secret_txt_gpg
 git status
 
 exit 0
