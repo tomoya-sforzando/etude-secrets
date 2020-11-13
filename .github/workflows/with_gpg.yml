@@ -1,0 +1,18 @@
+name: with GPG as it is
+
+on: [ push , workflow_dispatch ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Decrypt
+        run: ./.github/scripts/decrypt_secret_with_gpg.sh
+        env:
+          GPG_SECRET_PASSPHRASE: ${{ secrets.GPG_SECRET_PASSPHRASE }}
+      # This command is just an example to show your secret being printed
+      # Ensure you remove any print statements of your secrets. GitHub does
+      # not hide secrets that use this workaround.
+      - name: Test printing secret (Remove this step in production)
+        run: cat $HOME/with_gpg/secret.txt

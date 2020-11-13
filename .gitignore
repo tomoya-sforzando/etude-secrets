@@ -32,9 +32,10 @@ Temporary Items
 
 # End of https://www.toptal.com/developers/gitignore/api/osx
 
+# gpg
+with_gpg/secret.txt
 
 # git-secret
-
 !*.secret
 with_git-secret/.gitsecret/keys/random_seed
-with_git-secret/message.txt
+with_git-secret/secret.txt
